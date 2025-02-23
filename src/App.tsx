@@ -6,13 +6,12 @@ import { AppBar, Toolbar, IconButton, Typography } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import Button from "@mui/material/Button";
 import { Reset } from "styled-reset";
-import { BackButton } from "./BackButton";
-import { BasicInfoForm } from "./BasicInfoForm";
-import { CategoryComponent } from "./CategoryComponent";
-import { TeacherComponent } from "./TeacherComponent";
-import { StartDay } from "./StartDayComponent";
-import { WishDay } from "./WishDayComponent";
-// import { Registration } from "./Registration";
+import { BackButton } from "./components/BackButton";
+import { BasicInfoForm } from "./components/BasicInfoForm";
+import { CategoryComponent } from "./components/Category";
+import { TeacherComponent } from "./components/Teacher";
+import { StartDay } from "./components/StartDay";
+import { WishDay } from "./components/WishDay";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -28,7 +27,6 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
@@ -36,7 +34,6 @@ import HomeIcon from "@mui/icons-material/Home";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import TaskIcon from "@mui/icons-material/Task";
 import GroupAddIcon from "@mui/icons-material/GroupAdd";
-import { click } from "@testing-library/user-event/dist/click";
 
 type TextStyle = {
   color?: string;
@@ -44,7 +41,6 @@ type TextStyle = {
   fontSize?: string;
   fontWeight?: string;
 };
-type hamburger = {};
 
 const trainingStatus = ["研修中", "入社済み", "退社済み"] as const;
 type TrainingStatus = (typeof trainingStatus)[number];
@@ -232,7 +228,7 @@ export const App: React.FC = () => {
             </Toolbar>
           </Header>
           <BodyInner>
-            <BackButton />
+            <BackButton color="#398ab9" />
             <SText
               color="#398ab9"
               fontSize="40px"

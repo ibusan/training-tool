@@ -17,10 +17,14 @@ type ButtonStyle = {
   marginBottom?: string;
 };
 
-export const BackButton = () => (
+type BackButtonColor = {
+  color?: string; // color はオプショナルの文字列型
+};
+
+export const BackButton: React.FC<BackButtonColor> = ({ color }) => (
   <SButton display="flex" alignItems="center" marginBottom="48px">
-    <KeyboardArrowLeftIcon sx={{ color: "#398ab9" }} />
-    <SText color="#398ab9">戻る</SText>
+    <KeyboardArrowLeftIcon sx={{ color }} />
+    <SText color={color}>戻る</SText>
   </SButton>
 );
 

@@ -6,7 +6,6 @@ import HomeIcon from "@mui/icons-material/Home";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import TaskIcon from "@mui/icons-material/Task";
 import GroupAddIcon from "@mui/icons-material/GroupAdd";
-import styled from "styled-components";
 
 export const SideMenu = () => {
   return (

@@ -32,7 +32,6 @@ export const BasicInfoForm = () => {
     }
   };
 
-  // TODO: この処理はまとめられそう
   const onBlurName = () => {
     if (!name) {
       setNameEmpty(true);
