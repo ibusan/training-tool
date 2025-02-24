@@ -1,14 +1,8 @@
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import { ChangeEvent, useState } from "react";
-import styled from "styled-components";
-
-type TextStyle = {
-  color?: string;
-  marginBottom?: string;
-  fontSize?: string;
-  fontWeight?: string;
-};
+import { SSection } from "./BasicInfoFormStyle";
+import { SText } from "./BasicInfoFormStyle";
 
 export const BasicInfoForm = () => {
   const [name, setName] = useState<string>("");
@@ -96,13 +90,3 @@ export const BasicInfoForm = () => {
     </SSection>
   );
 };
-
-const SSection = styled.div`
-  margin-bottom: 64px;
-`;
-const SText = styled.p<TextStyle>`
-  font-size: ${({ fontSize = "14px" }) => fontSize};
-  font-weight: ${({ fontWeight = "normal" }) => fontWeight};
-  color: ${({ color = "#000" }) => color};
-  margin-bottom: ${({ marginBottom = "0px" }) => marginBottom};
-`;

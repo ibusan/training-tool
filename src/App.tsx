@@ -8,7 +8,7 @@ import Button from "@mui/material/Button";
 import { Reset } from "styled-reset";
 import { BackButton } from "./components/BackButton/BackButton";
 import { SideMenu } from "./components/SideMenu/SideMenu";
-import { BasicInfoForm } from "./components/BasicInfoForm";
+import { BasicInfoForm } from "./components/BasicInfoForm/BasicInfoForm";
 import { CategoryComponent } from "./components/Category";
 import { TeacherComponent } from "./components/Teacher";
 import { StartDay } from "./components/StartDay";
