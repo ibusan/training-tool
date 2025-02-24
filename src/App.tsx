@@ -6,7 +6,8 @@ import { AppBar, Toolbar, IconButton, Typography } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import Button from "@mui/material/Button";
 import { Reset } from "styled-reset";
-import { BackButton } from "./components/BackButton";
+import { BackButton } from "./components/BackButton/BackButton";
+import { SideMenu } from "./components/SideMenu/SideMenu";
 import { BasicInfoForm } from "./components/BasicInfoForm";
 import { CategoryComponent } from "./components/Category";
 import { TeacherComponent } from "./components/Teacher";
@@ -161,34 +162,7 @@ export const App: React.FC = () => {
             </IconButton>
           </SDiv>
           <div>
-            <ListItemButton
-              component="a"
-              href="/"
-              sx={{ borderTop: "solid 1px #000" }}
-            >
-              <ListItemIcon>
-                <HomeIcon />
-              </ListItemIcon>
-              <ListItemText primary="トップページ" />
-            </ListItemButton>
-            <ListItemButton>
-              <ListItemIcon>
-                <PeopleAltIcon />
-              </ListItemIcon>
-              <ListItemText primary="研修生一覧" />
-            </ListItemButton>
-            <ListItemButton>
-              <ListItemIcon>
-                <TaskIcon />
-              </ListItemIcon>
-              <ListItemText primary="研修課題一覧" />
-            </ListItemButton>
-            <ListItemButton>
-              <ListItemIcon>
-                <GroupAddIcon />
-              </ListItemIcon>
-              <ListItemText primary="ユーザー作成" />
-            </ListItemButton>
+            <SideMenu />
           </div>
         </Typography>
       </Sidebar>
