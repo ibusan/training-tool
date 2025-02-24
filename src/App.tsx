@@ -9,6 +9,7 @@ import { Reset } from "styled-reset";
 import { BackButton } from "./components/BackButton/BackButton";
 import { SideMenu } from "./components/SideMenu/SideMenu";
 import { BasicInfoForm } from "./components/BasicInfoForm/BasicInfoForm";
+import { Registration } from "./components/Registration/Registration";
 import { CategoryComponent } from "./components/Category/Category";
 import { TeacherComponent } from "./components/Teacher";
 import { StartDay } from "./components/StartDay";
@@ -386,6 +387,7 @@ export const App: React.FC = () => {
                   </SGrid>
                 </SSection>
               )}
+              <Registration />
             </Typography>
           </BodyInner>
         </Body>
