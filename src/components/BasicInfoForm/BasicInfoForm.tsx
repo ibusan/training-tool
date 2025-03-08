@@ -1,16 +1,14 @@
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import { ChangeEvent, useState } from "react";
-import styled from "styled-components";
+import { SSection } from "./BasicInfoFormStyle";
+import { SText } from "./BasicInfoFormStyle";
 
-type TextStyle = {
-  color?: string;
-  marginBottom?: string;
-  fontSize?: string;
-  fontWeight?: string;
+type TitleText = {
+  title?: string;
 };
 
-export const BasicInfoForm = () => {
+export const BasicInfoForm: React.FC<TitleText> = ({ title }) => {
   const [name, setName] = useState<string>("");
   const [mail, setMail] = useState<string>("");
   const [nameEmpty, setNameEmpty] = useState<boolean>(false);
@@ -50,7 +48,7 @@ export const BasicInfoForm = () => {
         marginBottom="32px"
         fontWeight="bold"
       >
-        基本情報
+        {title}
       </SText>
       <Box
         component="form"
@@ -96,13 +94,3 @@ export const BasicInfoForm = () => {
     </SSection>
   );
 };
-
-const SSection = styled.div`
-  margin-bottom: 64px;
-`;
-const SText = styled.p<TextStyle>`
-  font-size: ${({ fontSize = "14px" }) => fontSize};
-  font-weight: ${({ fontWeight = "normal" }) => fontWeight};
-  color: ${({ color = "#000" }) => color};
-  margin-bottom: ${({ marginBottom = "0px" }) => marginBottom};
-`;

@@ -1,17 +1,30 @@
 // 研修生編集画面の作成
 
 import React, { useState } from "react";
-import styled from "styled-components";
-import { AppBar, Toolbar, IconButton, Typography } from "@mui/material";
+import { Toolbar, IconButton, Typography } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import Button from "@mui/material/Button";
 import { Reset } from "styled-reset";
-import { BackButton } from "./components/BackButton";
-import { BasicInfoForm } from "./components/BasicInfoForm";
-import { CategoryComponent } from "./components/Category";
-import { TeacherComponent } from "./components/Teacher";
-import { StartDay } from "./components/StartDay";
-import { WishDay } from "./components/WishDay";
+import { BackButton } from "./components/BackButton/BackButton";
+import { SideMenu } from "./components/SideMenu/SideMenu";
+import { BasicInfoForm } from "./components/BasicInfoForm/BasicInfoForm";
+import { Registration } from "./components/Registration/Registration";
+import { CategoryComponent } from "./components/Category/Category";
+import { TeacherComponent } from "./components/Teacher/Teacher";
+import { StartDay } from "./components/StartDay/StartDay";
+import { WishDay } from "./components/WishDay/WishDay";
+import {
+  AppContainer,
+  Header,
+  Body,
+  BodyInner,
+  Sidebar,
+  SText,
+  SGrid,
+  SFlex,
+  SSection,
+  SDiv,
+} from "./style";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -27,100 +40,29 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import HomeIcon from "@mui/icons-material/Home";
-import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
-import TaskIcon from "@mui/icons-material/Task";
-import GroupAddIcon from "@mui/icons-material/GroupAdd";
 
-type TextStyle = {
-  color?: string;
-  marginBottom?: string;
-  fontSize?: string;
-  fontWeight?: string;
-};
+dayjs.locale("ja");
+
+const radioGroups = [
+  { id: "html-css-radio", label: "HTML&CSS", options: ["v1", "v2", "v3"] },
+  { id: "js-jquery-radio", label: "JS&jQuery", options: ["v1", "v2"] },
+  { id: "sass-gulp-radio", label: "Sass&Gulp", options: ["v1"] },
+  { id: "react-radio", label: "React", options: ["v1", "v2"] },
+  { id: "vue-radio", label: "vue", options: ["v1"] },
+  { id: "make-site-radio", label: "サイト作成", options: ["v1"] },
+];
 
 const trainingStatus = ["研修中", "入社済み", "退社済み"] as const;
 type TrainingStatus = (typeof trainingStatus)[number];
 
-dayjs.locale("ja");
-
-// スタイリング
-const AppContainer = styled.div<{ isMenuOpen: boolean }>`
-  display: flex;
-  flex-direction: column;
-  transition: margin-left 0.3s ease-in-out;
-  margin-left: ${({ isMenuOpen }) => (isMenuOpen ? "200px" : "0")};
-`;
-
-const Header = styled(AppBar)`
-  position: fixed;
-  z-index: 1201;
-  transition: margin-left 0.3s ease-in-out;
-`;
-
-const Body = styled.div<{ isMenuOpen: boolean }>`
-  /* padding: 64px 64px 0 64px; */
-  transition: margin-left 0.3s ease-in-out;
-  background-color: #e8e8e8;
-`;
-const BodyInner = styled.div`
-  padding: 64px 64px 0 64px;
-  transition: margin-left 0.3s ease-in-out;
-  background-color: #e8e8e8;
-`;
-
-const Sidebar = styled.div<{ isMenuOpen: boolean }>`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 240px;
-  height: 100%;
-  background-color: #fff;
-  color: white;
-  display: ${({ isMenuOpen }) => (isMenuOpen ? "block" : "none")};
-  z-index: 1200;
-  transition: all 0.3s ease-in-out;
-`;
-
-const SText = styled.p<TextStyle>`
-  font-size: ${({ fontSize = "14px" }) => fontSize};
-  font-weight: ${({ fontWeight = "normal" }) => fontWeight};
-  color: ${({ color = "#000" }) => color};
-  margin-bottom: ${({ marginBottom = "0px" }) => marginBottom};
-`;
-
-const SGrid = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  margin-bottom: 64px;
-`;
-const SFlex = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-const SSection = styled.section`
-  margin-bottom: 64px;
-`;
-const SDiv = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  padding-right: 16px;
-`;
-
 export const App: React.FC = () => {
+  const [personStatus, setPersonStatus] = useState<TrainingStatus>("研修中");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [entryDay, setEntryDay] = useState<Dayjs | null>(dayjs("2024/12/01"));
-  const [personStatus, setPersonStatus] = useState<TrainingStatus>("研修中");
 
   const toggleMenu = () => {
     setIsMenuOpen((prev) => !prev);
-    // ここにクリックした後にハンバーガーメニューアイコンを非表示にする記述を追加する
     const hamburger = document.getElementById("hamburger");
-    // const title = document.getElementById("title");
     const close = document.getElementById("close");
     if (hamburger && close) {
       if (isMenuOpen) {
@@ -161,34 +103,7 @@ export const App: React.FC = () => {
             </IconButton>
           </SDiv>
           <div>
-            <ListItemButton
-              component="a"
-              href="/"
-              sx={{ borderTop: "solid 1px #000" }}
-            >
-              <ListItemIcon>
-                <HomeIcon />
-              </ListItemIcon>
-              <ListItemText primary="トップページ" />
-            </ListItemButton>
-            <ListItemButton>
-              <ListItemIcon>
-                <PeopleAltIcon />
-              </ListItemIcon>
-              <ListItemText primary="研修生一覧" />
-            </ListItemButton>
-            <ListItemButton>
-              <ListItemIcon>
-                <TaskIcon />
-              </ListItemIcon>
-              <ListItemText primary="研修課題一覧" />
-            </ListItemButton>
-            <ListItemButton>
-              <ListItemIcon>
-                <GroupAddIcon />
-              </ListItemIcon>
-              <ListItemText primary="ユーザー作成" />
-            </ListItemButton>
+            <SideMenu />
           </div>
         </Typography>
       </Sidebar>
@@ -228,7 +143,7 @@ export const App: React.FC = () => {
             </Toolbar>
           </Header>
           <BodyInner>
-            <BackButton color="#398ab9" />
+            <BackButton color="#398ab9" text="戻る" />
             <SText
               color="#398ab9"
               fontSize="40px"
@@ -245,7 +160,7 @@ export const App: React.FC = () => {
                 marginBottom: "48px",
               }}
             >
-              <BasicInfoForm />
+              <BasicInfoForm title="基本情報" />
               <SText
                 color="rgb(73, 84, 100)"
                 fontSize="24px"
@@ -263,7 +178,6 @@ export const App: React.FC = () => {
                   value={personStatus}
                   onChange={handleStatusChange}
                   input={<OutlinedInput label="Name" />}
-                  // MenuProps={MenuProps}
                 >
                   {trainingStatus.map((status) => (
                     <MenuItem key={status} value={status}>
@@ -307,118 +221,29 @@ export const App: React.FC = () => {
                     課題バージョン
                   </SText>
                   <SGrid>
-                    <FormControl>
-                      <FormLabel id="html-css-radio">HTML&CSS</FormLabel>
-                      <RadioGroup
-                        row
-                        aria-labelledby="html-css-radio"
-                        name="row-radio-buttons-group"
-                      >
-                        <FormControlLabel
-                          value="v1"
-                          control={<Radio />}
-                          label="v1"
-                        />
-                        <FormControlLabel
-                          value="v2"
-                          control={<Radio />}
-                          label="v2"
-                        />
-                        <FormControlLabel
-                          value="v3"
-                          control={<Radio />}
-                          label="v3"
-                        />
-                      </RadioGroup>
-                    </FormControl>
-
-                    <FormControl>
-                      <FormLabel id="js-jquery-radio">JS&jQuery</FormLabel>
-                      <RadioGroup
-                        row
-                        aria-labelledby="js-jquery-radio"
-                        name="row-radio-buttons-group"
-                      >
-                        <FormControlLabel
-                          value="v1"
-                          control={<Radio />}
-                          label="v1"
-                        />
-                        <FormControlLabel
-                          value="v2"
-                          control={<Radio />}
-                          label="v2"
-                        />
-                      </RadioGroup>
-                    </FormControl>
-
-                    <FormControl>
-                      <FormLabel id="sass-gulp-radio">Sass&Gulp</FormLabel>
-                      <RadioGroup
-                        row
-                        aria-labelledby="sass-gulp-radio"
-                        name="row-radio-buttons-group"
-                      >
-                        <FormControlLabel
-                          value="v1"
-                          control={<Radio />}
-                          label="v1"
-                        />
-                      </RadioGroup>
-                    </FormControl>
-
-                    <FormControl>
-                      <FormLabel id="react-radio">React</FormLabel>
-                      <RadioGroup
-                        row
-                        aria-labelledby="react-radio"
-                        name="row-radio-buttons-group"
-                      >
-                        <FormControlLabel
-                          value="v1"
-                          control={<Radio />}
-                          label="v1"
-                        />
-                        <FormControlLabel
-                          value="v2"
-                          control={<Radio />}
-                          label="v2"
-                        />
-                      </RadioGroup>
-                    </FormControl>
-
-                    <FormControl>
-                      <FormLabel id="vue-radio">Vue</FormLabel>
-                      <RadioGroup
-                        row
-                        aria-labelledby="vue-radio"
-                        name="row-radio-buttons-group"
-                      >
-                        <FormControlLabel
-                          value="v1"
-                          control={<Radio />}
-                          label="v1"
-                        />
-                      </RadioGroup>
-                    </FormControl>
-
-                    <FormControl>
-                      <FormLabel id="vue-radio">サイト作成</FormLabel>
-                      <RadioGroup
-                        row
-                        aria-labelledby="site-radio"
-                        name="row-radio-buttons-group"
-                      >
-                        <FormControlLabel
-                          value="v1"
-                          control={<Radio />}
-                          label="v1"
-                        />
-                      </RadioGroup>
-                    </FormControl>
+                    {radioGroups.map(({ id, label, options }) => (
+                      <FormControl key={id}>
+                        <FormLabel id={id}>{label}</FormLabel>
+                        <RadioGroup
+                          row
+                          aria-labelledby={id}
+                          name={`${id}-group`}
+                        >
+                          {options.map((option) => (
+                            <FormControlLabel
+                              key={option}
+                              value={option}
+                              control={<Radio />}
+                              label={option}
+                            />
+                          ))}
+                        </RadioGroup>
+                      </FormControl>
+                    ))}
                   </SGrid>
                 </SSection>
               )}
+              <Registration />
             </Typography>
           </BodyInner>
         </Body>
