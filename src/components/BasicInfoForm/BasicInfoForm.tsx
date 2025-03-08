@@ -4,7 +4,11 @@ import { ChangeEvent, useState } from "react";
 import { SSection } from "./BasicInfoFormStyle";
 import { SText } from "./BasicInfoFormStyle";
 
-export const BasicInfoForm = () => {
+type TitleText = {
+  title?: string;
+};
+
+export const BasicInfoForm: React.FC<TitleText> = ({ title }) => {
   const [name, setName] = useState<string>("");
   const [mail, setMail] = useState<string>("");
   const [nameEmpty, setNameEmpty] = useState<boolean>(false);
@@ -44,7 +48,7 @@ export const BasicInfoForm = () => {
         marginBottom="32px"
         fontWeight="bold"
       >
-        基本情報
+        {title}
       </SText>
       <Box
         component="form"

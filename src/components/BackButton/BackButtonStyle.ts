@@ -27,8 +27,8 @@ export const SButton = styled.button<ButtonStyle>`
   color: ${({ color = "#000" }) => color};
   padding: 6px 8px;
   &:hover {
-    background-color: rgba(0, 0, 0, 0.04);
     cursor: pointer;
+    text-decoration: underline #398ab9;
   }
 `;
 
